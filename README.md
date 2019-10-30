@@ -1,5 +1,7 @@
 A formal proof that decisions stumps are PAC learnable.  
 
+For more information, check out the [wiki](https://github.com/jtristan/stump-learnable/wiki).
+
 ## Getting it working
 We assume you have [leanpkg](https://github.com/leanprover/lean/tree/master/leanpkg) installed. 
 
