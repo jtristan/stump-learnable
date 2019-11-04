@@ -6,7 +6,7 @@ For more information, check out the [wiki](https://github.com/jtristan/stump-lea
 We assume you have [leanpkg](https://github.com/leanprover/lean/tree/master/leanpkg) installed. 
 
 ```
-git clone https://github.com/jtristan/SLTCert
+git clone https://github.com/jtristan/stump-learnable
 cd stump-learnable
 leanpkg configure
 update-mathlib ## optional
