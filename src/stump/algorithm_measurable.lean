@@ -68,7 +68,7 @@ begin
     dunfold vec,
     unfold rlt,
     simp,
-    apply test''',
+    apply is_measurable_of_continuous_vec,
     {
         apply continuous.comp,
         apply max_continuous,
