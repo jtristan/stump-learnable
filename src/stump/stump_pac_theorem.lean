@@ -85,7 +85,7 @@ begin
             refine probability_measure.prob_trivial _ _ AS,
         },
         rw DC; try {assumption},
-        apply super_dumb, assumption, 
+        apply delta_helper, assumption,
     },
 end
 

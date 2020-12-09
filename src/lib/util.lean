@@ -18,7 +18,7 @@ lemma lc_nnreal:
     ∀ a: nnreal, ∀ b: nnreal, a + b = 1 → a = (1:nnreal) - b :=
 assume a b h, h ▸ (nnreal.add_sub_cancel).symm
 
-lemma super_dumb:
+lemma delta_helper:
     ∀ δ: nnreal, δ > (0:nnreal) → (1:nnreal) - δ ≤ (1: nnreal) :=
 assume h, by simp
 
