@@ -20,6 +20,6 @@ def max: Π n: ℕ, vec ℍ n → ℍ
 
 noncomputable 
 def choose (n: ℕ):vec (ℍ × bool) n → ℍ :=
-    λ data: (vec (ℍ × bool) n), max n (filter n data) 
+  λ data: (vec (ℍ × bool) n), max n (filter n data) 
 
 end stump

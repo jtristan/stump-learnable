@@ -60,7 +60,7 @@ coe_to_nnreal (to_measure_ne_top s)
 | ⟨m₁, u₁⟩ ⟨m₂, u₂⟩ H := begin
   congr, refine measure.ext (λ s hs, _),
   have : (ennreal.to_nnreal (m₁ s) : ennreal) = ennreal.to_nnreal (m₂ s) :=
-    congr_arg coe (H s hs),
+  congr_arg coe (H s hs),
   rwa [coe_to_nnreal, coe_to_nnreal] at this,
   apply lt_top_iff_ne_top.1 (lt_of_le_of_lt (measure_mono $ subset_univ s) $ by rw u₂ ; exact ennreal.lt_top_iff_ne_top.2 one_ne_top),
   apply lt_top_iff_ne_top.1 (lt_of_le_of_lt (measure_mono $ subset_univ s) $ by rw u₁ ; exact ennreal.lt_top_iff_ne_top.2 one_ne_top) 
@@ -116,8 +116,8 @@ begin
   have g : (b ∩ -a) ∩ (b ∩ a) = ∅, by rw [inter_left_comm,set.inter_assoc, compl_inter_self,inter_empty,inter_empty],
   apply disjoint_iff.2 g,
   {
-    rewrite ← diff_eq,
-    apply is_measurable.diff h₂ h₁,
+  rewrite ← diff_eq,
+  apply is_measurable.diff h₂ h₁,
   },
   apply is_measurable.inter h₂ h₁,
 end
@@ -127,7 +127,7 @@ lemma prob_union_inter
 p(a ∪ b) + p(a ∩ b) = p(a) + p(b) :=
 begin
   have h₁ : a ∪ b = a ∪ (b ∩ -a),by
-    rw [set.union_distrib_left, union_compl_self a,inter_univ],
+  rw [set.union_distrib_left, union_compl_self a,inter_univ],
   have h₂ : is_measurable(b ∩ -a), by exact is_measurable.diff g₂ g₁,
   have h₃ : a ∩ (b ∩ -a) = ∅, by tidy,
   rw h₁, 
@@ -174,12 +174,12 @@ begin
   have h₀ : {x : α | f x > ε} = - {x : α | f x ≤ ε},by tidy, 
   have h₁ : - {x : α | f x > ε} = {x : α | f x ≤ ε}, by tidy,
   have h₃ : (μ ({x : α | f x > ε}) : ℝ) + μ{x : α | f x ≤ ε} = 1, {
-    rw ←nnreal.coe_add, rw h₀, rw prob_comp, simp, rw ←h₁, 
-    apply is_measurable.compl hS,
+  rw ←nnreal.coe_add, rw h₀, rw prob_comp, simp, rw ←h₁, 
+  apply is_measurable.compl hS,
   },
   have h₅ : (μ ({x : α | f x > ε}) : ℝ) = 1 - μ ({x : α | f x ≤ ε}),
   {
-    rw ←h₃, symmetry, rw add_sub_cancel,
+  rw ←h₃, symmetry, rw add_sub_cancel,
   },
   rw h₅, rw sub_le_iff_le_add',
   rw add_comm, rw ←sub_le_iff_le_add', rw ←nnreal.coe_one,
@@ -192,26 +192,26 @@ begin
   have h₀ : {x : α | f x > ε} = - {x : α | f x ≤ ε},by tidy, 
   have h₁ : - {x : α | f x > ε} = {x : α | f x ≤ ε}, by tidy,
   have h₃ : (μ ({x : α | f x > ε})) + μ{x : α | f x ≤ ε} = 1, {
-    rw h₀, rw prob_comp, rw ←h₁, apply is_measurable.compl hS,
+  rw h₀, rw prob_comp, rw ←h₁, apply is_measurable.compl hS,
   },
   symmetry, rw ← h₃, rw add_comm, 
   rw ←add_le_add_iff_right,
 end
 
 lemma prob_trivial {α: Type} [measurable_space α]:
-    ∀ P: α → Prop, ∀ μ: probability_measure α, 
-    (∀ x, P x) → μ {x: α | P x} = 1 :=
+  ∀ P: α → Prop, ∀ μ: probability_measure α, 
+  (∀ x, P x) → μ {x: α | P x} = 1 :=
 begin
-    intros, 
-    have UNIV : {x: α | P x} = univ, 
-    {
-        apply eq_univ_of_forall,
-        intro,
-        rw mem_set_of_eq,
-        apply a,
-    },
-    rw UNIV,
-    apply prob_univ,
+  intros, 
+  have UNIV : {x: α | P x} = univ, 
+  {
+    apply eq_univ_of_forall,
+    intro,
+    rw mem_set_of_eq,
+    apply a,
+  },
+  rw UNIV,
+  apply prob_univ,
 end 
 
 end
@@ -237,7 +237,7 @@ else
 def join (m : probability_measure (probability_measure α)) : probability_measure α :=
 ⟨measure_theory.measure.bind m.to_measure probability_measure.to_measure,
   by rw [measure_theory.measure.bind_apply is_measurable.univ (measurable_to_measure α)];
-    simp [probability_measure.measure_univ]⟩
+  simp [probability_measure.measure_univ]⟩
 
 def bind (m : probability_measure α) (f : α → probability_measure β) : probability_measure β :=
 join (map f m)
@@ -337,8 +337,8 @@ begin
 begin
   rw _root_.bind, rw _root_.join_apply hs, congr,
   have h : (_root_.map f m).to_measure = map f m.to_measure,{
-    apply measure.ext, intros s hs, rw measure_theory.measure.map_apply hf hs, 
-    rw _root_.map, rw dif_pos hf,unfold_coes, simp, apply measure_theory.measure.map_apply hf hs,
+  apply measure.ext, intros s hs, rw measure_theory.measure.map_apply hf hs, 
+  rw _root_.map, rw dif_pos hf,unfold_coes, simp, apply measure_theory.measure.map_apply hf hs,
   },
   rw h, rw integral_map _ hf,
   refine measurable.comp measurable_coe _,
@@ -442,14 +442,14 @@ begin
   rw [nnreal.div_def,mul_assoc],
   have g₁ : (1 : ennreal) < ⊤,
   {
-    rw lattice.lt_top_iff_ne_top,
-    apply ennreal.one_ne_top,
+  rw lattice.lt_top_iff_ne_top,
+  apply ennreal.one_ne_top,
   },
   have g₂ : ∀ a, (p(a) ≠ 0) → (p(a))⁻¹ * p(a) = 1,
   {
-    intros a k,
-    rw mul_comm,
-    apply nnreal.mul_inv_cancel, exact k,
+  intros a k,
+  rw mul_comm,
+  apply nnreal.mul_inv_cancel, exact k,
   },
   rw g₂ b h₁, simp,
 end
@@ -463,14 +463,14 @@ begin
   rw [nnreal.div_def,mul_assoc],
   have g₁ : (1 : ennreal) < ⊤,
   {
-    rw lattice.lt_top_iff_ne_top,
-    apply ennreal.one_ne_top,
+  rw lattice.lt_top_iff_ne_top,
+  apply ennreal.one_ne_top,
   },
   have g₂ : ∀ a, (p(a) ≠ 0) → (p(a))⁻¹ * p(a) = 1,
   {
-    intros a k,
-    rw mul_comm,
-    apply nnreal.mul_inv_cancel, exact k,
+  intros a k,
+  rw mul_comm,
+  apply nnreal.mul_inv_cancel, exact k,
   },
   rw [g₂ a,nnreal.div_def,mul_assoc,g₂ b, mul_one],
   symmetry, rw [mul_one,set.inter_comm],

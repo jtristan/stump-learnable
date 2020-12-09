@@ -96,10 +96,10 @@ begin
   refine finset.induction_on s _ _,
   { simp, erw lintegral_zero },
   { assume a s has ih, simp [has], erw [lintegral_add],
-    rw simple_func.lintegral_eq_integral,unfold char_fun,
-    erw simple_func.restrict_const_integral, dsimp, rw ih, ext1,cases a_1, dsimp at *, simp at *, refl, exact(hX a), 
-    { intros i h, dsimp at *, solve_by_elim [hX] },
-    { intros a b, dsimp at *, solve_by_elim },
+  rw simple_func.lintegral_eq_integral,unfold char_fun,
+  erw simple_func.restrict_const_integral, dsimp, rw ih, ext1,cases a_1, dsimp at *, simp at *, refl, exact(hX a), 
+  { intros i h, dsimp at *, solve_by_elim [hX] },
+  { intros a b, dsimp at *, solve_by_elim },
   },
 end
 
@@ -131,19 +131,19 @@ begin
   intros ε eh,
   let s := char_prod hf eh,
   have hsf : ∀ x, s x ≤ f x, {
-    intro x, 
-    by_cases g : (f(x) ≥ ε),
-    dsimp [s], split_ifs, exact g,
-    dsimp [s], split_ifs, exact zero_le (f x),
+  intro x, 
+  by_cases g : (f(x) ≥ ε),
+  dsimp [s], split_ifs, exact g,
+  dsimp [s], split_ifs, exact zero_le (f x),
   },
   convert (integral_le_integral _ _ _ hsf),
   have seq : s = (simple_func.const α ε) * (χ ⟦{x : α | f x ≥ ε} ⟧),{
-    apply simple_func.ext, 
-    intro a, simp * at *, 
-    dunfold char_fun, 
-    rw [simple_func.restrict_apply, simple_func.const_apply],
-    split_ifs, rw mul_one, rw mul_zero,
-    apply (@measurable_le ennreal α _ _), exact measurable_const, assumption,
+  apply simple_func.ext, 
+  intro a, simp * at *, 
+  dunfold char_fun, 
+  rw [simple_func.restrict_apply, simple_func.const_apply],
+  split_ifs, rw mul_one, rw mul_zero,
+  apply (@measurable_le ennreal α _ _), exact measurable_const, assumption,
   },
   rw seq, simp, rw [integral_const_mul m, integral_char_fun], 
   apply (@measurable_le ennreal α _ _), exact measurable_const, assumption, 
@@ -157,13 +157,13 @@ theorem measure_fun_ge_le_integral_comp [measurable_space α][nonempty α] (m : 
 begin
   intros t ht, 
   have hsf : ∀ x, g(t) * (χ ⟦{x : α | f x ≥ t} ⟧ x) ≤ (g (f x)), {
-    intro x, 
-    dunfold char_fun,
-    rw [simple_func.restrict_apply, simple_func.const_apply],
-    split_ifs,  
-    rw [mul_one], apply (@nondec _ _ h),  
-    finish,
-    apply (@measurable_le ennreal α _ _), exact measurable_const, assumption,
+  intro x, 
+  dunfold char_fun,
+  rw [simple_func.restrict_apply, simple_func.const_apply],
+  split_ifs,  
+  rw [mul_one], apply (@nondec _ _ h),  
+  finish,
+  apply (@measurable_le ennreal α _ _), exact measurable_const, assumption,
   },
   rw [←integral_char_fun, ←integral_const_mul m],
   apply (integral_le_integral m), 
@@ -336,17 +336,17 @@ begin
 rw eq_iff_le_not_lt,
 split,
   {
-    apply generate_from_le_generate_from, intros s hs,  
-    rcases hs with ⟨A₀, hA, rfl⟩ | ⟨B₀, hB, rfl⟩,
-    existsi [A₀, univ], 
-    fsplit, ext1, cases x, simp, exact and.intro hA is_measurable.univ,
-    existsi [univ, B₀],
-    fsplit, ext1, cases x, simp, exact and.intro is_measurable.univ hB,
+  apply generate_from_le_generate_from, intros s hs,  
+  rcases hs with ⟨A₀, hA, rfl⟩ | ⟨B₀, hB, rfl⟩,
+  existsi [A₀, univ], 
+  fsplit, ext1, cases x, simp, exact and.intro hA is_measurable.univ,
+  existsi [univ, B₀],
+  fsplit, ext1, cases x, simp, exact and.intro is_measurable.univ hB,
   },
   {
-    apply not_lt_of_le,
-    apply measurable_space.generate_from_le, 
-    intros t ht, dsimp at ht, rcases ht with ⟨A, B, rfl, hA, hB⟩, exact is_measurable_set_prod hA hB,
+  apply not_lt_of_le,
+  apply measurable_space.generate_from_le, 
+  intros t ht, dsimp at ht, rcases ht with ⟨A, B, rfl, hA, hB⟩, exact is_measurable_set_prod hA hB,
   }
 end
 
@@ -385,7 +385,7 @@ begin
   conv{congr,funext,simp [coe_eq_to_measure]},
   simp [prob.dirac_apply' hA hB],
   have h : measurable (λ (x : β), ((retₚ x).to_measure : measure β) B),{
-    conv{congr,funext,rw ret_to_measure,}, exact measurable_dirac_fun hB,
+  conv{congr,funext,rw ret_to_measure,}, exact measurable_dirac_fun hB,
   },
   conv {congr, funext, rw [integral_const_mul ν.to_measure h],},
   refine measurable_mul _ _, conv{congr,funext, rw [ret_to_measure],},exact measurable_dirac_fun hA,
@@ -424,31 +424,31 @@ begin
   rw _root_.bind_apply (is_measurable_set_prod hA hB),
   conv_lhs{congr, congr, skip, funext, erw [_root_.bind_apply ( is_measurable_set_prod hA hB) (prob_inr_measurable_dirac a)]},
   simp[coe_eq_to_measure, prob.dirac_apply' hA hB],
-    -- move this to probability_theory 
+  -- move this to probability_theory 
   have h : measurable (λ (x : β), ((retₚ x).to_measure : measure β) B),
-    {
-      conv{congr,funext,rw ret_to_measure,}, 
-      exact measurable_dirac_fun hB,
-    },
+  {
+    conv{congr,funext,rw ret_to_measure,}, 
+    exact measurable_dirac_fun hB,
+  },
   conv {congr, funext, congr, congr, skip, funext, rw [integral_const_mul ν.to_measure h,ret_to_measure,mul_comm],},
   rw [prob.dirac_char_fun hB, integral_char_fun ν.to_measure hB],
   -- move this to measurable_space
   have g : ∀ a:α, ((ret a : measure α) A) < ⊤, 
-    {
-      assume a, rw dirac_apply _ hA, by_cases(a ∈ A),
-      simp[h],exact lt_top_iff_ne_top.2 one_ne_top, 
-      simp[h], exact lt_top_iff_ne_top.2 zero_ne_top,
-    },
+  {
+    assume a, rw dirac_apply _ hA, by_cases(a ∈ A),
+    simp[h],exact lt_top_iff_ne_top.2 one_ne_top, 
+    simp[h], exact lt_top_iff_ne_top.2 zero_ne_top,
+  },
   conv_lhs{congr, congr, skip, funext, rw [coe_to_nnreal (lt_top_iff_ne_top.1 (mul_lt_top (to_measure_lt_top _ _) (g a)))]},
   conv_lhs{congr, rw [integral_const_mul μ.to_measure (measurable_dirac_fun hA)]},
-    rw [dirac_char_fun hA, integral_char_fun _ hA, mul_comm, to_nnreal_mul], refl,
-    apply prob.measurable_of_measurable_coe,
-    exact (
-      @induction_on_inter _ 
-      (measurable_prod_bind_ret ν) 
-      ({E | ∃ (A : set α) (B : set β), (E = A.prod B) ∧ is_measurable A ∧ is_measurable B}) 
-      _ measure_rect_generate_from measure_rect_inter (measurable_prod_bind_ret_empty ν) (measurable_prod_bind_ret_basic ν) (measurable_prod_bind_ret_compl ν) (measurable_prod_bind_ret_union ν)
-      ),
+  rw [dirac_char_fun hA, integral_char_fun _ hA, mul_comm, to_nnreal_mul], refl,
+  apply prob.measurable_of_measurable_coe,
+  exact (
+    @induction_on_inter _ 
+    (measurable_prod_bind_ret ν) 
+    ({E | ∃ (A : set α) (B : set β), (E = A.prod B) ∧ is_measurable A ∧ is_measurable B}) 
+    _ measure_rect_generate_from measure_rect_inter (measurable_prod_bind_ret_empty ν) (measurable_prod_bind_ret_basic ν) (measurable_prod_bind_ret_compl ν) (measurable_prod_bind_ret_union ν)
+    ),
 end
 
 
@@ -476,19 +476,6 @@ begin
   rw [integral_char_fun _ (is_measurable_set_prod hA hB),←coe_eq_to_measure, 
   (prod.prob_measure_apply _ _ hA hB)], simp, 
 end
-
-
---lemma measurable_integral_fst {f : α × β → ennreal}(hf : measurable f) (ν : probability_measure β) : measurable (λ x:α, (∫ (λ y:β, f(x,y)) 𝒹 ν)) :=
---begin
---  conv{congr,funext,rw integral, rw @lintegral_eq_supr_eapprox_integral β {μ := ν.to_measure} (λ y, f(x,y)) (snd_comp_measurable hf _),}, 
---  refine measurable.supr _,
---  assume i, 
---  dunfold simple_func.integral,
---  sorry,
---end
-
-
-
 
 end fubini
 
@@ -551,10 +538,10 @@ theorem measurable_pair_measure {γ : Type u} [measurable_space α] [measurable_
 begin
   apply prob.measurable_of_measurable_coe,
   exact 
-    @induction_on_inter _ 
-    (measurable_prod_measure_pred hf hg) 
-    ({E | ∃ (A : set β) (B : set γ), (E = A.prod B) ∧ is_measurable A ∧ is_measurable B}) _ 
-    (measure_rect_generate_from)  (measure_rect_inter) (measurable_rect_empty hf hg) (measurable_rect_basic hf hg) (measurable_rect_compl f g)   (measure_rect_union f g),
+  @induction_on_inter _ 
+  (measurable_prod_measure_pred hf hg) 
+  ({E | ∃ (A : set β) (B : set γ), (E = A.prod B) ∧ is_measurable A ∧ is_measurable B}) _ 
+  (measure_rect_generate_from)  (measure_rect_inter) (measurable_rect_empty hf hg) (measurable_rect_basic hf hg) (measurable_rect_compl f g)   (measure_rect_union f g),
 end
 
 
@@ -599,8 +586,8 @@ noncomputable def vec.prod_measure [measurable_space α] (μ : probability_measu
 : Π n : ℕ, probability_measure (vec α n)
 | 0 := μ 
 | (succ k) := doₚ x ←ₚ μ ;
-              doₚ xs ←ₚ (vec.prod_measure k);
-              retₚ (x,xs)
+        doₚ xs ←ₚ (vec.prod_measure k);
+        retₚ (x,xs)
 
 
 instance vec.measure_space  [measurable_space α] (μ : probability_measure α) : Π n:ℕ, measure_space (vec α n) 
@@ -631,60 +618,60 @@ def vec_map {α: Type} {β: Type} (f: α → β): Π n: ℕ, vec α n → vec β
 | (nat.succ n) := λ v, (f v.fst,vec_map n v.snd)
 
 lemma kth_projn_map_comm {α: Type} {β: Type}:
-    ∀ f: α → β,
-    ∀ n: ℕ, ∀ v: vec α n, 
-    ∀ i: dfin (succ n), 
-    f (kth_projn v i) = kth_projn (vec_map f n v) i :=
+  ∀ f: α → β,
+  ∀ n: ℕ, ∀ v: vec α n, 
+  ∀ i: dfin (succ n), 
+  f (kth_projn v i) = kth_projn (vec_map f n v) i :=
 begin
   intros f n,
   induction n; intros,
   {
-      dunfold vec_map,
-      cases i, simp,
-      refl,
+    dunfold vec_map,
+    cases i, simp,
+    refl,
   },
   {
-      cases v, 
-      cases i,
-      {
-          simp, dunfold vec_map, simp,
-      },
-      {
-          simp,rw n_ih, refl,
-      }
+    cases v, 
+    cases i,
+    {
+      simp, dunfold vec_map, simp,
+    },
+    {
+      simp,rw n_ih, refl,
+    }
   }
 end
 
 lemma measurable_map {α: Type} {β: Type} [measurable_space α] [measurable_space β]:
-    ∀ n: ℕ, 
-    ∀ f: α → β,
-    measurable f → 
-    measurable (vec_map f n) :=
+  ∀ n: ℕ, 
+  ∀ f: α → β,
+  measurable f → 
+  measurable (vec_map f n) :=
 begin
+  intros,
+  induction n,
+  {
     intros,
-    induction n,
+    dunfold vec_map,
+    assumption,
+  },
+  {
+    intros,
+    dunfold vec_map,
+    apply measurable.prod; simp, 
     {
-        intros,
-        dunfold vec_map,
-        assumption,
+      apply measurable.comp,
+      assumption,
+      apply measurable_fst,
+      apply measurable_id,
     },
     {
-        intros,
-        dunfold vec_map,
-        apply measurable.prod; simp, 
-        {
-            apply measurable.comp,
-            assumption,
-            apply measurable_fst,
-            apply measurable_id,
-        },
-        {
-            apply measurable.comp,
-            assumption,
-            apply measurable_snd,
-            apply measurable_id,
-        }
-    },
+      apply measurable.comp,
+      assumption,
+      apply measurable_snd,
+      apply measurable_id,
+    }
+  },
 end
 
 end giry_vec
@@ -698,7 +685,7 @@ lemma abs_le_one_iff_ge_neg_one_le_one {x : ℝ} : (complex.abs x ≤ 1) ↔ (-1
 lemma abs_neg_exp_sub_one_le_double {x : ℝ} (h₁ : complex.abs x ≤ 1)(h₂ : x ≥ 0): complex.abs(exp(-x) - 1) ≤ 2*x := 
 calc 
 complex.abs(exp(-x) - 1) 
-    ≤ 2*complex.abs(-x) : @abs_exp_sub_one_le (-x) ((complex.abs_neg x).symm ▸ h₁)
+  ≤ 2*complex.abs(-x) : @abs_exp_sub_one_le (-x) ((complex.abs_neg x).symm ▸ h₁)
 ... = 2*complex.abs(x)  : by rw (complex.abs_neg x)
 ... = 2*x               : by rw [abs_of_real,((abs_eq h₂).2)]; left; refl
 
@@ -714,19 +701,6 @@ have h : -(2*x) ≤ exp(-x) -1, {
   linarith,
 end
 
-
--- lemma pow_neg_exp_ge {x : ℝ} (h₀ : 0 ≤ x) (h₁ : x ≤ 1) (n : ℕ) : (1 - 2*x)^n ≤ exp (-n*x) :=
--- begin
--- induction n with k ih, 
--- simp, 
--- rw _root_.pow_succ, simp [-sub_eq_add_neg], 
--- conv in (_ * x) {rw right_distrib}, rw real.exp_add,
--- rw (neg_eq_neg_one_mul x).symm,
--- apply mul_le_mul (neg_exp_ge h₀ h₁) ih _ _, swap,
--- apply le_of_lt (exp_pos (-x)),
--- sorry
--- end
-
 end hoeffding_aux
 
 instance : conditionally_complete_linear_order nnreal := 
@@ -735,10 +709,10 @@ instance : conditionally_complete_linear_order nnreal :=
   Inf     := Inf,
   le_cSup := assume s a x has, le_cSup x has,
   cSup_le := assume s a hs h,show Sup ((coe : nnreal → ℝ) '' s) ≤ a, from
-    cSup_le (by simp [hs]) $ assume r ⟨b, hb, eq⟩, eq ▸ h _ hb,
+  cSup_le (by simp [hs]) $ assume r ⟨b, hb, eq⟩, eq ▸ h _ hb,
   cInf_le := assume s a x has, cInf_le x has,
   le_cInf := assume s a hs h, show (↑a : ℝ) ≤ Inf ((coe : nnreal → ℝ) '' s), from
-    le_cInf (by simp [hs]) $ assume r ⟨b, hb, eq⟩, eq ▸ h _ hb,
+  le_cInf (by simp [hs]) $ assume r ⟨b, hb, eq⟩, eq ▸ h _ hb,
  decidable_le := begin assume x y, apply classical.dec end,
  .. nnreal.linear_ordered_semiring, 
  .. lattice.lattice_of_decidable_linear_order,

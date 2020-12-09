@@ -51,7 +51,7 @@ begin
   rw vec.prod_measure_eq, 
   rw prod.prob_measure_apply _ _ is_measurable.univ _, rw prob_univ,rw one_mul, 
   have h: {x : vec α (n + 1) | P (kth_projn x 0)} = {x : vec α (n + 1) | P (x.fst)}, {
-    ext1, cases x, refl,
+  ext1, cases x, refl,
   },
   rw h, clear h,
   induction n with k ih, rw vec.prod_measure_eq,
@@ -60,7 +60,7 @@ begin
   have h₂ : {x : vec α (succ k + 1) | P (x.fst)} = {x : vec α (k + 2) | P (x.fst)},by refl,
   rw h₂, clear h₂, 
   have h₃ : {x : vec α (k + 2) | P (x.fst)} = set.prod {x : α | P(x)} univ, {
-    ext1, cases x, dsimp at *, simp at *,
+  ext1, cases x, dsimp at *, simp at *,
   },
   rw h₃, rw vec.prod_measure_eq,rw prod.prob_measure_apply _ _ _ is_measurable.univ, rw prob_univ, rw mul_one, assumption, apply nonempty.vec, exact hP, assumption, apply nonempty.vec, assumption,
 end
@@ -73,16 +73,16 @@ begin
   induction n with n b dk ih, rw vec.prod_measure,
   have g : {x : vec α 0 | P (kth_projn x i)} = {x | P x}, by tidy, rw g, refl, 
   have h: {x : vec α (n + 1) | P (kth_projn x fz)} = {x : vec α (n + 1) | P (x.fst)}, {
-    ext1, cases x, refl,
+  ext1, cases x, refl,
   },
   cases i,
   rw h, clear h,
 have h₃ : {x : vec α (n + 1) | P (x.fst)} = set.prod {x : α | P(x)} univ, {
-    ext1, cases x, dsimp at *, simp at *,
+  ext1, cases x, dsimp at *, simp at *,
   },
   rw h₃, rw vec.prod_measure_eq, rw prod.prob_measure_apply _ _ hP is_measurable.univ, rw prob_univ, rw mul_one, exact (nonempty.vec n), rw vec.prod_measure_eq,
   have h₄ : {x : vec α (succ n) | P (kth_projn x (fs i_a))} = set.prod univ {x : vec α n | P (kth_projn x i_a)}, {
-    ext1, cases x, dsimp at *, simp at *,
+  ext1, cases x, dsimp at *, simp at *,
   },
   rw h₄, rw prod.prob_measure_apply _ _ is_measurable.univ _, rw prob_univ, rw one_mul, rw b,
   assumption, exact (nonempty.vec n), 
@@ -105,11 +105,11 @@ end
   induction n with k ih, 
   simp only [nat.pow_zero, nat_zero_eq_zero],
   have g : {x : vec α 0 | ∀ i : dfin 1, P (kth_projn x i)} = {x | P x}, {
-    ext1, dsimp at *, fsplit, intros a, exact (a fz), intros a i, assumption,
+  ext1, dsimp at *, fsplit, intros a, exact (a fz), intros a i, assumption,
   },
   rw g, simp, refl, 
   have h₂ : {x : vec α (succ k) | ∀ (i : dfin (succ k + 1)), P (kth_projn x i)} = set.prod {x | P x} {x : vec α k | ∀ (i : dfin (succ k)), P (kth_projn x i)},{
-    ext1, apply dfin_succ_prop_iff_fst_and_rst,
+  ext1, apply dfin_succ_prop_iff_fst_and_rst,
   },
   rw [h₂], 
   rw vec.prod_measure_eq, rw vec.prod_measure_apply _ _ hP (hp' k),rw ih,refl, 
@@ -119,13 +119,13 @@ end
  (vec.prob_measure n μ : probability_measure (vec α n)) {x : vec α n | ∀ (i : dfin (succ n)), P (kth_projn x i)} = (μ {x : α | P x}) ^ (n+1) := 
  begin
   induction n with k ih, 
-    simp only [nat.pow_zero, nat_zero_eq_zero], 
+  simp only [nat.pow_zero, nat_zero_eq_zero], 
   have g : {x : vec α 0 | ∀ i : dfin 1, P (kth_projn x i)} = {x | P x}, {
-    ext1, dsimp at *, fsplit, intros a, exact (a fz), intros a i, assumption,
+  ext1, dsimp at *, fsplit, intros a, exact (a fz), intros a i, assumption,
   },
   rw g, rw vec.prob_measure, simp, refl, 
   have h₂ : {x : vec α (succ k) | ∀ (i : dfin (succ (succ k))), P (kth_projn x i)} = set.prod {x | P x} {x : vec α k | ∀ (i : dfin (succ k)), P (kth_projn x i)},{
-    ext1, apply dfin_succ_prop_iff_fst_and_rst,
+  ext1, apply dfin_succ_prop_iff_fst_and_rst,
   },
   rw h₂,
   rw vec.prob_measure_apply _ _,
@@ -156,13 +156,13 @@ begin
   refine finset.induction_on m _ _,
   { simp, erw lintegral_zero },
   { assume a s has ih, simp [has], erw [lintegral_add],
-    erw simple_func.lintegral_eq_integral,unfold char_fun,
-    erw simple_func.restrict_const_integral, dsimp, rw ←ih, rw one_mul, rw coe_eq_to_measure, refl, exact(hA n a), 
-    exact measurable.comp (simple_func.measurable _) measurable_id,
-    refine measurable.comp _ measurable_id, 
-    refine finset.induction_on s _ _, 
-      {simp, exact simple_func.measurable 0,},
-      {intros a b c d, simp [c], apply measure_theory.measurable_add, exact simple_func.measurable _, exact d,}
+  erw simple_func.lintegral_eq_integral,unfold char_fun,
+  erw simple_func.restrict_const_integral, dsimp, rw ←ih, rw one_mul, rw coe_eq_to_measure, refl, exact(hA n a), 
+  exact measurable.comp (simple_func.measurable _) measurable_id,
+  refine measurable.comp _ measurable_id, 
+  refine finset.induction_on s _ _, 
+    {simp, exact simple_func.measurable 0,},
+    {intros a b c d, simp [c], apply measure_theory.measurable_add, exact simple_func.measurable _, exact d,}
   },
 end
 
