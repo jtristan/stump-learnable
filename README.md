@@ -9,7 +9,8 @@ We assume you have [leanpkg](https://github.com/leanprover/lean/tree/master/lean
 git clone https://github.com/jtristan/stump-learnable
 cd stump-learnable
 leanpkg configure
-update-mathlib ## optional
 leanpkg build
 ```
+
+This project only works with Lean version 3.4.2. 
 
