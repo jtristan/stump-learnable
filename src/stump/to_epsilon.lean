@@ -107,8 +107,8 @@ begin
   by_cases (inc_seq_of x n₀ ≤ x (succ n₀)),
   simp [h], existsi (succ n₀), refl, 
   rw max, split_ifs, 
-    exact ih, 
-    existsi (succ n₀), refl,
+  exact ih, 
+  existsi (succ n₀), refl,
   }
 end
 
@@ -119,12 +119,12 @@ begin
   {
   rw inc_seq_of,
   by_cases (inc_seq_of x n₀ ≤ x (succ n₀)),
-    simp[h], existsi (succ n₀), exact ⟨rfl, by refl⟩, 
-    rw max, split_ifs, choose k hk using ih,
-    exact ⟨k, and.intro hk.left (le_succ_of_le hk.right)⟩,
-    choose k hk using ih, existsi k, rw not_le at h_1, rw not_le at h, exfalso,
-    have h₁ := lt_trans h h_1, have h₂ := lt_irrefl (x (succ n₀)), 
-    exact h₂ h₁,
+  simp[h], existsi (succ n₀), exact ⟨rfl, by refl⟩, 
+  rw max, split_ifs, choose k hk using ih,
+  exact ⟨k, and.intro hk.left (le_succ_of_le hk.right)⟩,
+  choose k hk using ih, existsi k, rw not_le at h_1, rw not_le at h, exfalso,
+  have h₁ := lt_trans h h_1, have h₂ := lt_irrefl (x (succ n₀)), 
+  exact h₂ h₁,
   }
 end
 
@@ -135,8 +135,8 @@ begin
   {
   rw inc_seq_of, 
   by_cases (inc_seq_of x k ≤ x (succ k)), 
-    simp [h] ; refl,
-    simp [h],left ; refl,
+  simp [h] ; refl,
+  simp [h],left ; refl,
   },
 end
 
@@ -205,7 +205,7 @@ begin
   replace hyp' := hyp'.1,
   suffices : 0 < (target - θ) / (↑j + 1) ,
   calc θ < θ + ((target - θ) / (↑j + 1)) : by rwa (lt_add_iff_pos_right _)
-  ... ≤ z                             : hyp', 
+  ...    ≤ z                             : hyp', 
   rw [nnreal.coe_pos, nnreal.coe_div], refine div_pos _ _,
   rwa [nnreal.coe_sub _ _ (le_of_lt h), sub_pos,←nnreal.coe_lt], simp, exact add_pos_of_pos_of_nonneg (zero_lt_one) (by simp)
 end 
